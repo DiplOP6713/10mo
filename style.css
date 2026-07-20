@@ -2785,7 +2785,10 @@ footer a {
 
 .gallery-frame {
     position: relative;
+    width: min(100%, calc(min(68vh, 680px) * var(--frame-ratio, .78) + 2 * clamp(20px, 3vw, 32px)));
+    margin-inline: auto;
     padding: clamp(20px, 3vw, 32px);
+    transition: width .45s cubic-bezier(.4, 0, .2, 1);
     overflow: visible;
     border: 0;
     border-radius: 35px;
@@ -2799,6 +2802,8 @@ footer a {
     overflow: hidden;
     border-radius: 20px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .16);
+    aspect-ratio: var(--frame-ratio, .78);
+    transition: aspect-ratio .45s cubic-bezier(.4, 0, .2, 1);
 }
 
 .frame-doodle {
@@ -2846,8 +2851,8 @@ footer a {
 .gallery-frame img {
     display: block;
     width: 100%;
-    height: min(68vh, 680px);
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
     background: rgba(30, 2, 13, .28);
     transition: opacity .35s ease, transform .5s cubic-bezier(.2, .8, .2, 1), filter .35s ease;
 }
@@ -2879,7 +2884,14 @@ footer a {
     margin: 24px 0 0;
     color: #f6dce3;
     font: clamp(20px, 2.4vw, 30px)/1.3 var(--serif);
+    transition: opacity .35s ease, transform .35s ease;
 }
+
+.gallery-caption.is-changing {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
 
 .gallery-nav {
     position: relative;
@@ -2915,11 +2927,23 @@ footer a {
 }
 
 .gallery-dots {
+    width: min(38vw, 300px);
+    overflow: hidden;
+    padding: 6px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 18%, #000 82%, transparent);
+}
+
+.dots-strip {
     display: flex;
+    align-items: center;
     gap: 9px;
+    width: max-content;
+    transition: transform .45s cubic-bezier(.22, 1, .36, 1);
 }
 
 .gallery-dots button {
+    flex: none;
     width: 8px;
     height: 8px;
     padding: 0;
@@ -2927,41 +2951,41 @@ footer a {
     border-radius: 50%;
     background: rgba(255, 255, 255, .35);
     cursor: pointer;
-    transition: width .3s ease, background .3s ease;
+    transition: width .3s ease, background .3s ease, box-shadow .3s ease;
+}
+
+.gallery-dots button:hover {
+    background: rgba(255, 255, 255, .7);
 }
 
 .gallery-dots button[aria-current="true"] {
     width: 28px;
     border-radius: 9px;
-    background: #fff;
-}
-
-.gallery-dots.is-progress {
-    position: relative;
-    display: block;
-    width: min(34vw, 260px);
-    height: 6px;
-    overflow: hidden;
-    border-radius: 99px;
-    background: rgba(255, 255, 255, .22);
-    cursor: pointer;
-    box-shadow: inset 0 1px 2px rgba(26, 0, 10, .3);
-}
-
-.gallery-dots.is-progress::after {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: var(--progress, 1%);
-    border-radius: inherit;
     background: linear-gradient(90deg, #f6afc2, #fff8f4);
     box-shadow: 0 0 12px rgba(255, 220, 230, .8);
-    transition: width .35s ease;
 }
 
-.gallery-dots.is-progress:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 5px;
+.random-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 35px auto 0;
+    padding: 12px 30px;
+    border: 1px solid rgba(255, 255, 255, .38);
+    border-radius: 99px;
+    color: #fff;
+    background: rgba(255, 255, 255, .1);
+    cursor: pointer;
+    font: 20px var(--script);
+    backdrop-filter: blur(8px);
+    transition: transform .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+}
+
+.random-btn:hover {
+    transform: scale(1.05);
+    background: #fff;
+    color: var(--wine);
+    box-shadow: 0 0 25px rgba(255, 220, 230, .45);
 }
 
 .gallery-home {

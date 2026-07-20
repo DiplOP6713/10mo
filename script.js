@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const updateLoader = now => {
         const progress = Math.min((now - loaderStartedAt) / 3000, 1);
         loaderProgress.textContent = `${(progress * 10).toFixed(1)}`;
- 
+
         if (progress < 1) {
             requestAnimationFrame(updateLoader);
             return;
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "youre mine, all mine bachi.",
             "i wish we will live under the same roof and grow together after a decade?",
             "i wish you ALL THE BESTT!!!"
-            
+
         ];
         let lineIndex = 0, swapping = false;
         revealSection.addEventListener("animationend", e => { if (e.animationName === "reveal-pulse") revealSection.classList.remove("line-pulse"); });
